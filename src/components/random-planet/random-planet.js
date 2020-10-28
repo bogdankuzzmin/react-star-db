@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import {getRandomInteger} from '../../utils/common';
 
 import SwapiService from '../../services/swapi-service';
+import Loader from '../loader';
 
 import './random-planet.css';
 
@@ -9,7 +11,8 @@ export default class RandomPlanet extends Component {
   swapiService = new SwapiService();
 
   state = {
-    planet: {}
+    planet: {},
+    loading: true,
   };
 
   constructor() {
@@ -17,25 +20,49 @@ export default class RandomPlanet extends Component {
     this.updatePlanet();
   }
 
-  onPlanetLoaded = (planet) => {
-    this.setState({planet});
+  planetLoadedHandler = (planet) => {
+    this.setState({
+      planet,
+      loading: false,
+    });
+  };
+
+  errorHandler = (error) => {
+
   };
 
   updatePlanet() {
-    const id = 12;
+    const id = getRandomInteger(1, 19);
+    
     this.swapiService
       .getPlanet(id)
-      .then(this.onPlanetLoaded);
+      .then(this.planetLoadedHandler)
+      .catch(this.errorHandler);
   }
 
   render() {
-    const {planet: {id, name, population,
-      rotationPeriod, diameter}} = this.state;
-      console.log(this.state.planet);
+    const {planet, loading} = this.state;
+
+    const loader = loading ? <Loader /> : null;
+    const content = !loading ? <PlanetView planet={planet} /> : null;
+
     return (
       <div className="random-planet jumbotron rounded">
-        <img className="planet-image"
-             src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`} 
+        {loader}
+        {content}
+      </div>
+    );
+  }
+}
+
+const PlanetView = ({planet}) => {
+  const {id, name, population,
+    rotationPeriod, diameter} = planet;
+
+  return (
+    <React.Fragment>
+       <img className="planet-image"
+             src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}
              alt="planet" />
         <div>
           <h4>{name}</h4>
@@ -54,7 +81,6 @@ export default class RandomPlanet extends Component {
             </li>
           </ul>
         </div>
-      </div>
-    );
-  }
-}
+    </React.Fragment>
+  );
+};
