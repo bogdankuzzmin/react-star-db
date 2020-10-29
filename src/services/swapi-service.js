@@ -77,7 +77,10 @@ export default class SwapiService {
   };
 
   _adaptToClientPerson = (person) => {
-    return {class="container"son.gender,
+    return {
+      id: this._extractId(person),
+      name: person.name,
+      gender: person.gender,
       birthYear: person.birthYear,
       eyeColor: person.eyeColor,
     }
