@@ -43,7 +43,7 @@ export default class PersonDetails extends Component {
     }
 
     const {id, name, gender, birthYear, eyeColor} = this.state.person;
-    console.log(this.state.person);
+
     return (
       <div className="person-details card">
         <img className="person-image"
