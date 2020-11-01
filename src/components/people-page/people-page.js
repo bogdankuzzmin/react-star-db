@@ -12,15 +12,13 @@ export default class PeoplePage extends Component {
     hasError: false, 
   };
 
-  componentDidCatch() {
+  componentDidCatch(error, info) {
     this.setState({hasError: true});
   }
 
-  personSelectedHandler = (id) => {
-    this.setState({
-      selectedPerson: id
-    });
-  }
+  personSelectedHandler = (selectedPerson) => {
+    this.setState({selectedPerson});
+  };
   
   render() {
     if (this.state.hasError) {
@@ -29,8 +27,8 @@ export default class PeoplePage extends Component {
 
     return (
       <div className="row mb2">
-        <div div className="col-md-6">
-          <ItemList itemSelectedHandler={this.personSelectedHandler}/>
+        <div className="col-md-6">
+          <ItemList itemSelectedHandler={this.personSelectedHandler} />
         </div>
         <div className="col-md-6">
           <PersonDetails personId={this.state.selectedPerson} />
