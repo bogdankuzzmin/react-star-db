@@ -5,15 +5,16 @@ import Row from '../row';
 import ItemList from '../item-list';
 import PersonDetails from '../person-details';
 import ErrorIndicator from '../error-indicator';
+import ErrorBoundry from '../error-boundry';
 
 import './people-page.css';
 
 export default class PeoplePage extends Component {
-  swapiService = new SwapiService();
+  SwapiService = new SwapiService();
 
   state = {
     selectedPerson: 3,
-    hasError: false, 
+    hasError: false,
   };
 
   componentDidCatch(error, info) {
@@ -23,17 +24,17 @@ export default class PeoplePage extends Component {
   personSelectedHandler = (selectedPerson) => {
     this.setState({selectedPerson});
   };
-  
+
   render() {
     if (this.state.hasError) {
       return <ErrorIndicator />
     }
 
     const itemList = (
-      <ItemList 
+      <ItemList
         itemSelectedHandler={this.personSelectedHandler}
-        getData={this.swapiService.getAllPeople}>
-        
+        getData={this.SwapiService.getAllPeople}>
+
         {(i) => (
           `${i.name} (${i.birthYear})`
         )}
@@ -41,13 +42,13 @@ export default class PeoplePage extends Component {
     );
 
     const personDetails = (
-      <PersonDetails personId={this.state.selectedPerson} />
+      <ErrorBoundry>
+        <PersonDetails personId={this.state.selectedPerson} />
+      </ErrorBoundry>
     );
 
     return (
-      <Row 
-        left={itemList}
-        right={personDetails} />
+      <Row left={itemList} right={personDetails} />
     );
   }
 }
