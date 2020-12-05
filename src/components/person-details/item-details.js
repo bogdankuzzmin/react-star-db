@@ -5,6 +5,7 @@ import ErrorButton from '../error-button';
 import Loader from '../loader';
 
 import './item-details.css';
+import ErrorBoundry from "../error-boundry";
 
 export default class ItemDetails extends Component {
   swapiService = new SwapiService();
@@ -50,31 +51,33 @@ export default class ItemDetails extends Component {
     const {name, gender, birthYear, eyeColor} = item;
 
     return (
-      <div className="item-details card">
-        <img className="item-image"
-          src={image}
-          alt="character" />
+      <ErrorBoundry>
+        <div className="item-details card">
+          <img className="item-image"
+               src={image}
+               alt="character" />
 
-        <div className="card-body">
-          <h4>{name}</h4>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <span className="term">Gender:</span>
-              <span>{gender}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">Birth Year:</span>
-              <span>{birthYear}</span>
-            </li>
-            <li className="list-group-item">
-              <span className="term">Eye Color:</span>
-              <span>{eyeColor}</span>
-            </li>
-          </ul>
+          <div className="card-body">
+            <h4>{name}</h4>
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                <span className="term">Gender:</span>
+                <span>{gender}</span>
+              </li>
+              <li className="list-group-item">
+                <span className="term">Birth Year:</span>
+                <span>{birthYear}</span>
+              </li>
+              <li className="list-group-item">
+                <span className="term">Eye Color:</span>
+                <span>{eyeColor}</span>
+              </li>
+            </ul>
 
-          <ErrorButton />
+            <ErrorButton />
+          </div>
         </div>
-      </div>
+      </ErrorBoundry>
     );
   }
 }
