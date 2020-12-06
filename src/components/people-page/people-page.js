@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import SwapiService from '../../services/swapi-service';
 import Row from '../row';
 import ItemList from '../item-list';
-import ItemDetails from '../person-details';
+import ItemDetails from '../item-details';
 import ErrorIndicator from '../error-indicator';
 import ErrorBoundry from '../error-boundry';
 
