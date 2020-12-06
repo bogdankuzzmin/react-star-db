@@ -29,7 +29,7 @@ export default class ItemList extends Component {
       const {id} = item;
 
       const label = this.props.children(item);
-      console.log(label);
+
       return (
         <li className="list-group-item"
           key={id}
