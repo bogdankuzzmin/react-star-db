@@ -36,7 +36,7 @@ const PlanetDetails = ({itemId}) => {
               getImageUrl={getPlanetImage}>
 
               <Record field="population" label="Population" />
-              <Record field="rotationPerod" label="Rotation Period" />
+              <Record field="rotationPeriod" label="Rotation Period" />
               <Record field="diameter" label="Diameter" />
             </ItemDetails>
           );
