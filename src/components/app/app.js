@@ -5,10 +5,19 @@ import RandomPlanet from '../random-planet';
 import ErrorIndicator from '../error-indicator';
 
 import './app.css';
-import ItemDetails, {Record} from "../item-details/item-details";
-import Row from '../row';
 import ErrorBoundry from "../error-boundry";
 import SwapiService from "../../services/swapi-service";
+import Row from '../row';
+
+import {
+  PersonDetails,
+  PlanetDetails,
+  StarshipDetails,
+  PersonList,
+  PlanetList,
+  StarshipList
+} from '../sw-components';
+
 
 export default class App extends Component {
   swapiService = new SwapiService();
@@ -39,32 +48,6 @@ export default class App extends Component {
       <RandomPlanet/> :
       null;
 
-    const {getPerson, getStarship, getPersonImage, getStarshipImage} = this.swapiService;
-
-    const personDetails = (
-      <ItemDetails
-        itemId={11}
-        getData={getPerson}
-        getImageUrl={getPersonImage}>
-
-        <Record field="birthYear" label="Birth Year" />
-        <Record field="gender" label="Gender" />
-        <Record field="eyeColor" label="Eye Color" />
-      </ItemDetails>
-    );
-
-    const starshipDetails = (
-        <ItemDetails
-          itemId={9}
-          getData={getStarship}
-          getImageUrl={getStarshipImage}>
-
-          <Record field="model" label="Model" />
-          <Record field="length" label="Length" />
-          <Record field="passengers" label="Passengers" />
-        </ItemDetails>
-    );
-
     return (
       <ErrorBoundry>
         <div className="stardb-app">
@@ -79,9 +62,14 @@ export default class App extends Component {
             </button>
           </div>
 
-          <Row left={personDetails} right={starshipDetails} />
+          <Row
+            left={
+            <StarshipList />
+          }
+          right={
+            <PersonDetails itemId={11} />
+          } />
 
-          {/*<PeoplePage />*/}
         </div>
       </ErrorBoundry>
     );
