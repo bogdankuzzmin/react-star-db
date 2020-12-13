@@ -1,7 +1,7 @@
 import React from 'react';
 import './header.css';
 
-const Header = () => {
+const Header = ({toggleDataClickHandler}) => {
   return (
     <div className="header d-flex">
       <h3>
@@ -18,6 +18,9 @@ const Header = () => {
         </li>
         <li>
           <a href="#/starships">Starships</a>
+        </li>
+        <li>
+          <button onClick={toggleDataClickHandler}>Toggle data</button>
         </li>
       </ul>
     </div>

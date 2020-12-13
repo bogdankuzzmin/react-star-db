@@ -3,6 +3,10 @@
   padding-left: 10px;
 }
 
+.header ul {
+  width: 100%;
+}
+
 .header ul li {
   list-style: none;
   margin: 0;
@@ -24,4 +28,24 @@
 
 .header h3 a:hover {
   color: #00bc8c;
+}
+
+.header button {
+  margin-right: auto;
+  color: crimson;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.header button:active,
+.header button:focus {
+  color: #940c28;
+  outline: none;
+}
+
+.header ul li:last-child {
+  margin-left: auto;
 }
