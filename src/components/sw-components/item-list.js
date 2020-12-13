@@ -9,7 +9,7 @@ const withChildFunction = (Wrapped, fn) => {
         {fn}
       </Wrapped>
     );
-  }
+  };
 };
 
 const renderName = ({name}) => <span>{name}</span>;

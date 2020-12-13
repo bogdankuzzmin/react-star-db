@@ -1,11 +1,12 @@
 
 import React, {Component} from 'react';
+
 import SwapiService from '../../services/swapi-service';
 import ErrorButton from '../error-button';
+import ErrorBoundry from "../error-boundry";
 import Loader from '../loader';
 
 import './item-details.css';
-import ErrorBoundry from "../error-boundry";
 
 export const Record = ({item, field, label}) => {
   return (

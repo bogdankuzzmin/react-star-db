@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
-import {getRandomInteger} from '../../utils/common';
 
 import SwapiService from '../../services/swapi-service';
 import Loader from '../loader';
 import ErrorIndicator from "../error-indicator";
 
+import {getRandomInteger} from '../../utils/common';
+
+
 import './random-planet.css';
 
 export default class RandomPlanet extends Component {
-
   swapiService = new SwapiService();
 
   state = {
@@ -43,7 +44,7 @@ export default class RandomPlanet extends Component {
 
   updatePlanet = () => {
     const id = getRandomInteger(1, 19);
-    
+
     this.swapiService
       .getPlanet(id)
       .then(this.planetLoadedHandler)

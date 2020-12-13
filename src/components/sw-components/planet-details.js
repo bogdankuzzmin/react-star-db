@@ -3,7 +3,7 @@ import {Record} from '../item-details/item-details';
 import {withSwapiService} from '../hoc-helpers';
 
 const PlanetDetails = (props) => {
-  return(
+  return (
     <ItemDetails {...props}>
       <Record field="population" label="Population" />
       <Record field="rotationPeriod" label="Rotation Period" />

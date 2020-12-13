@@ -2,24 +2,21 @@ import React, {Component} from 'react';
 
 import Header from '../header';
 import RandomPlanet from '../random-planet';
+import {PeoplePage, PlanetsPage, StarshipsPage} from '../pages';
+
+import ErrorBoundry from "../error-boundry";
 import ErrorIndicator from '../error-indicator';
 
-import './app.css';
-import ErrorBoundry from "../error-boundry";
 import SwapiService from "../../services/swapi-service";
 import DummySwapiService from '../../services/dummy-swapi-service';
 import {SwapiServiceProvider} from '../swapi-service-context';
-import {PeoplePage} from '../pages';
-import {PlanetsPage} from '../pages';
-import {StarshipsPage} from '../pages';
+
+import './app.css';
 
 export default class App extends Component {
   state = {
     showRandomPlanet: true,
     hasError: false,
-    personId: 11,
-    planetId: 5,
-    starshipId: 5,
     swapiService: new SwapiService(),
   }
 
@@ -50,16 +47,14 @@ export default class App extends Component {
       return <ErrorIndicator />
     }
 
-    const planet = this.state.showRandomPlanet ?
-      <RandomPlanet/> :
-      null;
+    const planet = this.state.showRandomPlanet ? <RandomPlanet/> : null;
 
     return (
       <ErrorBoundry>
         <SwapiServiceProvider value={this.state.swapiService}>
           <div className="stardb-app">
-            <Header
-              toggleDataClickHandler={this.toggleDataClickHandler} />
+            <Header toggleDataClickHandler={this.toggleDataClickHandler} />
+
             {planet}
 
             <div className="row mb2 button-row">

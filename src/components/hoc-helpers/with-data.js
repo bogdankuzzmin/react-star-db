@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import Loader from "../loader";
+
 import ErrorIndicator from "../error-indicator";
+import Loader from "../loader";
 
 const withData = (View) => {
   return class extends Component {
