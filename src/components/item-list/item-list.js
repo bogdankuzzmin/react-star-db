@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './item-list.css';
 
@@ -20,7 +21,13 @@ const ItemList = (props) => {
 
   ItemList.defaultProps = {
     itemSelectedHandler: () => {}
-  }
+  };
+
+  ItemList.propTypes = {
+    itemSelectedHandler: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    children: PropTypes.func.isRequired,
+  };
 
   return (
     <ul className="item-list list-group">
