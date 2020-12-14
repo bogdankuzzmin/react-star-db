@@ -18,6 +18,10 @@ const ItemList = (props) => {
     );
   });
 
+  ItemList.defaultProps = {
+    itemSelectedHandler: () => {}
+  }
+
   return (
     <ul className="item-list list-group">
       {items}
