@@ -5,9 +5,7 @@ import {StarshipList} from '../sw-components';
 const StarshipsPage = ({history}) => {
     return (
       <StarshipList
-        itemSelectedHandler={(itemId) => {
-          history.push(`/starships/${itemId}`);
-        }} />
+        itemSelectedHandler={(id) => history.push(id)} />
     );
 }
 
