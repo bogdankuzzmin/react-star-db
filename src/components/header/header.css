@@ -46,6 +46,6 @@
   outline: none;
 }
 
-.header ul li:last-child {
+.header ul .margin-right {
   margin-left: auto;
 }

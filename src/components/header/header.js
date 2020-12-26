@@ -22,6 +22,12 @@ const Header = ({toggleDataClickHandler}) => {
           <Link to="/starships/">Starships</Link>
         </li>
         <li>
+          <Link to="/secret">Secret</Link>
+        </li>
+        <li className="margin-right">
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
           <button onClick={toggleDataClickHandler}>Toggle data</button>
         </li>
       </ul>
