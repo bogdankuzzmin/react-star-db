@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useMemo, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 
 import SwapiService from '../../services/swapi-service';
@@ -8,60 +8,46 @@ import ErrorIndicator from "../error-indicator";
 import {getRandomInteger} from '../../utils/common';
 
 import './random-planet.css';
+const swapiService = new SwapiService();
 
-export default class RandomPlanet extends Component {
-  static defaultProps = {
-    updateInterval: 10000
-  };
-
-  static propTypes = {
-    updateInterval: PropTypes.number
-  };
-
-  swapiService = new SwapiService();
-
-  state = {
-    planet: {},
+const RandomPlanet = (props) => {
+  const initialState = useMemo(() => ({
+    planet: null,
     loading: true,
     error: false,
-  };
+  }), []);
 
-  componentDidMount() {
-    const {updateInterval} = this.props;
-    this.updatePlanet();
-    this.interval = setInterval(this.updatePlanet, updateInterval);
-  }
+  const [dataState, setDataState] = useState(initialState);
 
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
-
-  planetLoadedHandler = (planet) => {
-    this.setState({
-      planet,
-      loading: false,
-      error: false,
-    });
-  };
-
-  errorHandler = () => {
-    this.setState({
-      error: true,
-      loading: false,
-    });
-  };
-
-  updatePlanet = () => {
+  const getPlanet = () => {
     const id = getRandomInteger(1, 19);
 
-    this.swapiService
+    swapiService
       .getPlanet(id)
-      .then(this.planetLoadedHandler)
-      .catch(this.errorHandler);
+      .then(planet => setDataState({
+        planet,
+        loading: false,
+        error: false,
+      }))
+      .catch(error => setDataState({
+        planet: null,
+        loading: false,
+        error: true,
+      }));
   };
 
-  render() {
-    const {planet, loading, error} = this.state;
+  useEffect(() => {
+    setDataState(initialState);
+    const {updateInterval = 3000} = props;
+
+    getPlanet();
+
+    const interval = setInterval(() => getPlanet(), updateInterval);
+
+    return () => clearInterval(interval);
+  }, [initialState, props]);
+
+    const {planet, loading, error} = dataState;
 
     const hasData = !(loading || error);
 
@@ -76,8 +62,11 @@ export default class RandomPlanet extends Component {
         {content}
       </div>
     );
-  }
-}
+};
+
+RandomPlanet.propTypes = {
+  updateInterval: PropTypes.number
+};
 
 const PlanetView = ({planet}) => {
   const {id, name, population,
@@ -108,3 +97,5 @@ const PlanetView = ({planet}) => {
     </React.Fragment>
   );
 };
+
+export default RandomPlanet;
